@@ -565,7 +565,7 @@
         // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
         
         // --- GITHUB DEFAULT CONFIG (Fallbacks for cross-device photo viewing) ---
-        const DEFAULT_GH_REPO = "kotasuits/shipment";
+        const DEFAULT_GH_REPO = "ezytracks/shipment";
         const DEFAULT_GH_BRANCH = "main";
 
         window._rowStore = []; // reset on every data render
@@ -858,7 +858,10 @@
 
             // Always fetch GitHub records.json first to get AWB + photoUrl
             const cfg = JSON.parse(localStorage.getItem('ghTrackCfg') || '{}');
-            if (!cfg.repo) cfg.repo = DEFAULT_GH_REPO;
+            if (!cfg.repo || cfg.repo !== "ezytracks/shipment") {
+                cfg.repo = "ezytracks/shipment";
+                localStorage.setItem('ghTrackCfg', JSON.stringify(cfg));
+            }
             if (!cfg.branch) cfg.branch = DEFAULT_GH_BRANCH;
             
             let githubRecords = [];
