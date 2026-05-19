@@ -66,7 +66,6 @@
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.05);
             transition: all 0.2s;
-            line-height: 1;
         }
 
         .back-btn:hover {
@@ -130,7 +129,7 @@
             Tracking Number: <span id="awb-display">Loading...</span>
             <div class="carrier-info" id="carrier-info"></div>
 
-            <!-- Instruction Only for Delhivery -->
+            <!-- Delhivery Instruction -->
             <div class="delhivery-instruction" id="delhivery-msg">
                 Type <strong>1</strong> in Postcode box and Confirm to check live tracking
             </div>
@@ -156,32 +155,32 @@
             function getCarrierCode(trackingNum) {
                 const num = trackingNum.toUpperCase().trim();
 
-                // Shree Maruti (New Addition)
+                // ==================== SHREE MARUTI ====================
                 if (num.startsWith('261')) {
                     document.getElementById('carrier-info').textContent = 'Carrier: Shree Maruti';
-                    return "0";        // Use 0 for auto-detect or replace with actual 17track code if available
+                    return "100357";           // ✅ Official 17track code
                 }
 
-                // DTDC
+                // ==================== DTDC ====================
                 if (num.startsWith('D')) {
                     document.getElementById('carrier-info').textContent = 'Carrier: DTDC';
                     return "100069";
                 }
 
-                // Trackon
+                // ==================== TRACKON ====================
                 if (num.startsWith('5006') || num.startsWith('1003')) {
                     document.getElementById('carrier-info').textContent = 'Carrier: Trackon';
                     return "100180";
                 }
 
-                // Delhivery
+                // ==================== DELHIVERY ====================
                 if (num.startsWith('356') || num.startsWith('19')) {
                     document.getElementById('carrier-info').textContent = 'Carrier: Delhivery';
                     document.getElementById('delhivery-msg').style.display = 'block';
                     return "100060";
                 }
 
-                // Default - Auto detect
+                // Default Auto Detect
                 document.getElementById('carrier-info').textContent = 'Carrier: Auto Detecting...';
                 return "0";
             }
