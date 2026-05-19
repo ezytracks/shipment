@@ -252,6 +252,7 @@
         <a href="prints/dispatched.html">📋 Dispatched</a>
         <a href="uploads.html">📸 Upload Tracking</a>
         <a href="search.html" class="on">🔎 Search Photos</a>
+        <a href="instantupload.html">✨ Instant Flow</a>
     </div>
 
     <div id="imod" onclick="this.classList.remove('open')">
@@ -288,6 +289,13 @@
 
             // 2. Try GitHub
             const cfg = JSON.parse(localStorage.getItem('ghTrackCfg') || '{}');
+            if (!cfg.repo || cfg.repo !== "ezytracks/shipment") {
+                cfg.repo = "ezytracks/shipment";
+                localStorage.setItem('ghTrackCfg', JSON.stringify(cfg));
+            }
+            let ghRecords = [];
+            let loaded = false;
+
             if (cfg.token && cfg.repo) {
                 try {
                     const res = await fetch(`https://api.github.com/repos/${cfg.repo}/contents/records.json?ref=${cfg.branch || 'main'}&t=${Date.now()}`, {
@@ -297,21 +305,35 @@
                     if (res.ok) {
                         const d = await res.json();
                         const decoded = atob(d.content.replace(/\n/g, ''));
-                        const ghRecords = decoded.trim() ? JSON.parse(decoded) : [];
-                        
-                        ghRecords.forEach(r => {
-                            if (!allRecords.find(lr => lr.phone === r.phone)) {
-                                allRecords.push({
-                                    phone: r.phone,
-                                    photo: r.photoUrl,
-                                    status: 'Logged',
-                                    updateTime: r.uploadedAt,
-                                    name: r.name
-                                });
-                            }
-                        });
+                        ghRecords = decoded.trim() ? JSON.parse(decoded) : [];
+                        loaded = true;
                     }
                 } catch (e) { console.error("GitHub fetch failed:", e); }
+            }
+
+            if (!loaded && cfg.repo) {
+                try {
+                    const res = await fetch(`https://raw.githubusercontent.com/${cfg.repo}/${cfg.branch || 'main'}/records.json?t=${Date.now()}`);
+                    if (res.ok) {
+                        const text = await res.text();
+                        ghRecords = text.trim() ? JSON.parse(text) : [];
+                        loaded = true;
+                    }
+                } catch (e) { console.error("Public raw GitHub fetch failed:", e); }
+            }
+
+            if (loaded) {
+                ghRecords.forEach(r => {
+                    if (!allRecords.find(lr => lr.phone === r.phone)) {
+                        allRecords.push({
+                            phone: r.phone,
+                            photo: r.photoUrl,
+                            status: 'Logged',
+                            updateTime: r.uploadedAt,
+                            name: r.name
+                        });
+                    }
+                });
             }
 
             renderGrid(allRecords);
