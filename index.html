@@ -17,15 +17,11 @@
             --muted: #94a3b8;
             --bdr: rgba(255, 255, 255, .09);
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Outfit', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; }
+
         body {
             background: var(--bg);
-            background-image: radial-gradient(ellipse at 80% 0%, rgba(34, 211, 238, .15), transparent 50%), 
+            background-image: radial-gradient(ellipse at 80% 0%, rgba(34, 211, 238, .15), transparent 50%),
                               radial-gradient(ellipse at 10% 100%, rgba(99, 102, 241, .15), transparent 50%);
             color: var(--txt);
             min-height: 100vh;
@@ -34,19 +30,14 @@
             flex-direction: column;
             align-items: center;
         }
-        .ph {
-            text-align: center;
-            margin-bottom: 32px;
-            width: 100%;
-            max-width: 940px;
-        }
+
+        .ph { text-align: center; margin-bottom: 32px; max-width: 940px; }
         .ph h1 {
             font-size: clamp(1.6rem, 4vw, 2.6rem);
             font-weight: 700;
             background: linear-gradient(135deg, #22d3ee, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
         }
         .ph p { color: var(--muted); }
 
@@ -58,210 +49,78 @@
             padding: 26px;
             width: 100%;
             max-width: 940px;
-            box-shadow: 0 28px 56px rgba(0, 0, 0, .35);
+            box-shadow: 0 28px 56px rgba(0,0,0,.35);
             margin-bottom: 22px;
         }
 
-        .search-container {
-            display: flex;
-            gap: 10px;
-        }
-        .sbox {
-            position: relative;
-            flex: 1;
-        }
+        .search-container { display: flex; gap: 10px; }
+        .sbox { position: relative; flex: 1; }
         .sbox .si {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.1rem;
-            pointer-events: none;
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            font-size: 1.1rem; pointer-events: none;
         }
         .sbox input {
-            width: 100%;
-            background: var(--inp);
-            border: 1.5px solid var(--bdr);
-            border-radius: 13px;
-            padding: 14px 16px 14px 48px;
-            color: var(--txt);
-            font-size: 1rem;
-            outline: none;
-            transition: all .25s;
+            width: 100%; background: var(--inp); border: 1.5px solid var(--bdr);
+            border-radius: 13px; padding: 14px 16px 14px 48px; color: var(--txt);
+            font-size: 1rem; outline: none;
         }
         .sbox input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, .2);
+            box-shadow: 0 0 0 3px rgba(99,102,241,.2);
         }
 
         .clear-btn {
-            padding: 0 18px;
-            background: rgba(255,255,255,0.08);
-            border: 1.5px solid var(--bdr);
-            border-radius: 13px;
-            color: var(--muted);
-            cursor: pointer;
-            font-size: 1.2rem;
+            padding: 0 18px; background: rgba(255,255,255,0.08);
+            border: 1.5px solid var(--bdr); border-radius: 13px;
+            color: var(--muted); cursor: pointer; font-size: 1.2rem;
         }
-        .clear-btn:hover {
-            background: rgba(255,255,255,0.18);
-            color: #fff;
-        }
+        .clear-btn:hover { background: rgba(255,255,255,0.18); color: white; }
 
-        .rstats {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            font-size: .88rem;
-            color: var(--muted);
-        }
+        .rstats { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: .88rem; color: var(--muted); }
         .rstats strong { color: var(--pl); }
-        .rbadge {
-            background: rgba(99, 102, 241, .15);
-            color: var(--pl);
-            padding: 2px 11px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: .82rem;
-        }
 
         #rgrid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
             gap: 18px;
         }
+
         .rc {
-            background: rgba(10, 15, 35, .72);
-            border: 1px solid var(--bdr);
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all .2s;
-            position: relative;
+            background: rgba(10,15,35,.72); border: 1px solid var(--bdr);
+            border-radius: 15px; overflow: hidden; cursor: pointer;
+            transition: all .2s; position: relative;
         }
         .rc:hover {
             transform: translateY(-4px);
-            box-shadow: 0 14px 38px rgba(99, 102, 241, .22);
-            border-color: rgba(99, 102, 241, .4);
+            box-shadow: 0 14px 38px rgba(99,102,241,.22);
+            border-color: rgba(99,102,241,.4);
         }
-        .rc img {
-            width: 100%;
-            height: 175px;
-            object-fit: contain;
-            background: #000;
-        }
-        .rc .ci { padding: 13px 15px; }
-        .rc .cn { font-weight: 700; font-size: .95rem; margin-bottom: 5px; }
-        .rc .ml { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .chip {
-            background: rgba(99, 102, 241, .12);
-            border: 1px solid rgba(99, 102, 241, .2);
-            color: var(--pl);
-            padding: 3px 9px;
-            border-radius: 20px;
-            font-size: .75rem;
-            font-weight: 600;
-        }
-        .chip.ph { background: rgba(34, 211, 238, .1); border-color: rgba(34, 211, 238, .25); color: #67e8f9; }
-        .chip.dt { background: rgba(255,255,255,.05); border-color: var(--bdr); color: var(--muted); }
+        .rc img { width: 100%; height: 175px; object-fit: contain; background: #000; }
 
         .vo {
-            position: absolute;
-            inset: 0;
-            height: 175px;
-            background: rgba(99, 102, 241, 0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background .25s;
+            position: absolute; inset: 0; height: 175px;
+            background: rgba(99,102,241,0); display: flex;
+            align-items: center; justify-content: center; transition: .25s;
         }
-        .rc:hover .vo { background: rgba(99, 102, 241, .22); }
-        .vo span {
-            background: rgba(0,0,0,.72);
-            color: #fff;
-            padding: 7px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-            opacity: 0;
-            transform: scale(0.85);
-            transition: all .25s;
-        }
-        .rc:hover .vo span { opacity: 1; transform: scale(1); }
+        .rc:hover .vo { background: rgba(99,102,241,.22); }
 
-        mark {
-            background: rgba(253, 224, 71, .3);
-            color: #fde047;
-            padding: 0 3px;
-            border-radius: 3px;
-        }
+        .chip { padding: 3px 9px; border-radius: 20px; font-size: .75rem; font-weight: 600; }
 
-        .sb {
-            text-align: center;
-            padding: 55px 20px;
-            color: var(--muted);
-        }
+        .sb { text-align: center; padding: 55px 20px; color: var(--muted); }
         .sb .si2 { font-size: 3.2rem; margin-bottom: 12px; }
 
         /* Modal */
         #imod {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.92);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 18px;
-            padding: 20px;
-            overflow-y: auto;
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
+            z-index: 10000; align-items: center; justify-content: center;
+            flex-direction: column; gap: 18px; padding: 20px;
         }
         #imod.open { display: flex; }
-
-        #imod .mw { position: relative; max-width: 94vw; }
-        #imod .mw img {
-            max-width: 800px;
-            max-height: 75vh;
-            border-radius: 13px;
-            box-shadow: 0 18px 55px rgba(0,0,0,.6);
-        }
+        #imod .mw { position: relative; }
         #imod .cm {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ef4444;
-            color: white;
-            border: 2px solid white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 10005;
-        }
-
-        .dlbtn, .dl-btn-secondary {
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all .2s;
-        }
-        .dlbtn {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: white;
-        }
-        .dl-btn-secondary {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--bdr);
-            color: var(--muted);
-        }
-
-        @media(max-width: 600px) {
-            #rgrid { grid-template-columns: 1fr 1fr; }
-            .rc img, .vo { height: 150px; }
+            position: absolute; top: 10px; right: 10px; background: #ef4444;
+            color: white; border: 2px solid white; width: 44px; height: 44px;
+            border-radius: 50%; font-size: 1.5rem; cursor: pointer;
         }
     </style>
 </head>
@@ -283,7 +142,7 @@
 
     <div class="card">
         <div class="rstats" id="rstats" style="display:none;">
-            Showing <strong id="rcnt">0</strong> result(s) <span class="rbadge" id="rbadge">0</span>
+            Showing <strong id="rcnt">0</strong> result(s)
         </div>
         <div id="rc">
             <div class="sb" id="init-st">
@@ -299,7 +158,7 @@
             <div class="sb" id="norec-st" style="display:none;">
                 <div class="si2">📭</div>
                 <h3>No records loaded</h3>
-                <p id="norec-msg">Failed to load records.</p>
+                <p id="norec-msg">Loading records...</p>
             </div>
             <div class="sb" id="load-st" style="display:none;">
                 <div class="si2">⏳</div>
@@ -312,14 +171,14 @@
 
     <div id="imod">
         <div class="mw">
-            <button class="cm" onclick="closeMod()" title="Close">✕</button>
+            <button class="cm" onclick="closeMod()">✕</button>
             <img id="mimg" src="" alt="">
         </div>
 
         <div id="tracking-action-area" style="width:100%; max-width:500px; display:flex; flex-direction:column; align-items:center; gap:12px;"></div>
 
         <div class="track-input-box" id="manual-track-box" style="display:none; width:100%; max-width:500px;">
-            <label style="display:block; font-size:.68rem; color:var(--pl); margin-bottom:8px; font-weight:700; text-transform:uppercase;">🚚 Manual Tracking</label>
+            <label style="display:block; font-size:.68rem; color:var(--pl); margin-bottom:8px; font-weight:700;">🚚 Manual Tracking</label>
             <div style="display:flex; gap:8px;">
                 <input type="text" id="manual-awb" placeholder="Type Tracking ID..." style="flex:1; background:var(--inp); border:1px solid var(--bdr); border-radius:8px; padding:12px; color:#fff;">
                 <button class="dlbtn" onclick="startManualTrack()">Track</button>
@@ -346,18 +205,23 @@
         async function loadAndSearch() {
             showState('load-st');
             try {
-                const res = await fetch(`https://raw.githubusercontent.com/thecraftyriz/thecraftyriz/main/records.json?v=${Date.now()}`);
-                if (!res.ok) throw new Error("Failed to load records");
+                // Updated to your new repo
+                let res = await fetch(`https://raw.githubusercontent.com/ezytracks/shipment/main/records.json?v=${Date.now()}`);
+                
+                if (!res.ok) {
+                    res = await fetch('records.json?v=' + Date.now());
+                }
+
+                if (!res.ok) throw new Error("records.json not found");
 
                 const text = await res.text();
                 allRecords = JSON.parse(text || '[]');
 
+                console.log(`✅ Loaded ${allRecords.length} records`);
                 showState('init-st');
-                const q = document.getElementById('si').value.trim();
-                if (q.length >= 5) doSearch();
             } catch (e) {
                 showState('norec-st');
-                document.getElementById('norec-msg').textContent = "Failed to load records. Please try again later.";
+                document.getElementById('norec-msg').innerHTML = `Failed to load records.<br><br>Check that records.json exists in the repo.`;
             }
         }
 
@@ -383,24 +247,22 @@
 
             if (!matched.length) {
                 document.getElementById('empty-st').style.display = 'block';
-                document.getElementById('rgrid').innerHTML = '';
                 return;
             }
 
             document.getElementById('rstats').style.display = 'flex';
             document.getElementById('rcnt').textContent = matched.length;
-            document.getElementById('rbadge').textContent = matched.length;
 
             document.getElementById('rgrid').innerHTML = matched.map(r => `
                 <div class="rc" onclick="openMod('${r.id}')">
                     <div class="vo"><span>🔍 View Photo</span></div>
-                    <img src="${r.photoUrl}" alt="photo" loading="lazy">
+                    <img src="${r.photoUrl}" loading="lazy">
                     <div class="ci">
                         <div class="cn">👤 ${hl(r.name, raw)}</div>
                         <div class="ml">
                             <span class="chip">📍 ${hl(r.pincode, raw)}</span>
                             <span class="chip ph">📞 ${hl(r.phone, raw)}</span>
-                            ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.2);color:#34d399;">🚚 ${hl(r.awb, raw)}</span>` : ''}
+                            ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1);color:#34d399;">🚚 ${hl(r.awb, raw)}</span>` : ''}
                             <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
                         </div>
                     </div>
@@ -417,26 +279,24 @@
             document.getElementById('mmeta').innerHTML = `
                 <span class="chip">📍 ${r.pincode}</span>
                 <span class="chip ph">📞 ${r.phone}</span>
-                ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.2);color:#34d399;">🚚 ${r.awb}</span>` : ''}
+                ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1);color:#34d399;">🚚 ${r.awb}</span>` : ''}
                 <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
             `;
 
-            const actionArea = document.getElementById('tracking-action-area');
-            const manualBox = document.getElementById('manual-track-box');
-            actionArea.innerHTML = '';
+            const area = document.getElementById('tracking-action-area');
+            const manual = document.getElementById('manual-track-box');
+            area.innerHTML = '';
 
             if (r.awb) {
-                manualBox.style.display = 'none';
-                actionArea.innerHTML = `
-                    <a href="livestatus.html?awb=${encodeURIComponent(r.awb)}" class="dlbtn" style="width:100%; padding:18px; font-size:1.1rem;">
-                        🚀 Track Shipment Status
-                    </a>
-                    <a href="${r.photoUrl}" class="dl-btn-secondary" download="photo_${r.id}.jpg">⬇️ Download Photo</a>
+                manual.style.display = 'none';
+                area.innerHTML = `
+                    <a href="livestatus.html?awb=${encodeURIComponent(r.awb)}" class="dlbtn" style="width:100%; padding:18px; font-size:1.1rem;">🚀 Track Status</a>
+                    <a href="${r.photoUrl}" class="dl-btn-secondary" download>⬇️ Download Photo</a>
                 `;
             } else {
-                manualBox.style.display = 'block';
+                manual.style.display = 'block';
                 document.getElementById('manual-awb').value = '';
-                actionArea.innerHTML = `<a href="${r.photoUrl}" class="dl-btn-secondary" download="photo_${r.id}.jpg">⬇️ Download Photo</a>`;
+                area.innerHTML = `<a href="${r.photoUrl}" class="dl-btn-secondary" download>⬇️ Download Photo</a>`;
             }
 
             document.getElementById('imod').classList.add('open');
@@ -450,7 +310,6 @@
 
         function closeMod() {
             document.getElementById('imod').classList.remove('open');
-            setTimeout(() => document.getElementById('mimg').src = '', 300);
         }
 
         // Initialize
@@ -463,7 +322,7 @@
             input.addEventListener('input', () => {
                 input.value = input.value.replace(/[^0-9]/g, '').slice(0, 5);
                 clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(doSearch, 280);
+                searchTimeout = setTimeout(doSearch, 250);
             });
 
             clearBtn.addEventListener('click', () => {
@@ -473,9 +332,6 @@
 
             document.getElementById('imod').addEventListener('click', e => {
                 if (e.target.id === 'imod') closeMod();
-            });
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape') closeMod();
             });
         };
     </script>
