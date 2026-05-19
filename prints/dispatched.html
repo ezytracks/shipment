@@ -865,6 +865,7 @@
             if (!cfg.branch) cfg.branch = DEFAULT_GH_BRANCH;
             
             let githubRecords = [];
+            let loaded = false;
 
             if (cfg.token && cfg.repo) {
                 try {
@@ -876,16 +877,20 @@
                         const d = await res.json();
                         const decoded = atob(d.content.replace(/\n/g, ''));
                         githubRecords = decoded.trim() ? JSON.parse(decoded) : [];
+                        loaded = true;
                     }
                 } catch(e) { console.error('GitHub records.json fetch error:', e); }
-            } else if (cfg.repo) {
+            }
+
+            if (!loaded && cfg.repo) {
                 try {
                     const res = await fetch(`https://raw.githubusercontent.com/${cfg.repo}/${cfg.branch || 'main'}/records.json?t=${Date.now()}`);
                     if (res.ok) {
                         const text = await res.text();
                         githubRecords = text.trim() ? JSON.parse(text) : [];
+                        loaded = true;
                     }
-                } catch(e) {}
+                } catch(e) { console.error('Public records.json fetch error:', e); }
             }
 
             // Find matching GitHub record by last-5 phone or AWB digits
