@@ -477,11 +477,42 @@
             <h1>Dispatched Items</h1>
             <p>Live data synced directly from Google Sheets.</p>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button class="refresh-btn" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.4);" onclick="openManualModal()"><span>✍️</span> Manual Fill</button>
             <button class="refresh-btn" onclick="fetchData()"><span>↻</span> Refresh</button>
             <button class="refresh-btn"
                 style="background:rgba(239,68,68,0.15);color:#f87171;border-color:rgba(239,68,68,0.4);"
                 onclick="localStorage.removeItem('dispatchedCache');fetchData();">🗑 Clear Cache</button>
+        </div>
+    </div>
+
+    <!-- Manual Dispatch Modal -->
+    <div id="manualModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px; text-align: left;">
+            <button class="close-modal" onclick="closeManualModal()">×</button>
+            <h2 style="margin-bottom: 20px; font-weight: 700; background: linear-gradient(to right, #34d399, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✍️ Manual Dispatch Entry</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">Customer Name</label>
+                    <input type="text" id="manualName" placeholder="Enter customer name..." style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-size: 0.95rem;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">Phone Number</label>
+                    <input type="text" id="manualPhone" placeholder="Enter 10-digit phone number..." style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-size: 0.95rem;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">Address</label>
+                    <textarea id="manualAddress" placeholder="Enter delivery address..." rows="3" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-size: 0.95rem; resize: none; font-family: inherit;"></textarea>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;">Pincode</label>
+                    <input type="text" id="manualPincode" placeholder="Enter 6-digit pincode..." style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 8px; color: white; outline: none; font-size: 0.95rem;">
+                </div>
+                <div style="margin-top: 10px;">
+                    <button onclick="submitManualDispatch()" class="refresh-btn" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #10b981, #3b82f6); color: white; border: none; font-size: 1rem; padding: 12px;">📤 Submit Dispatch</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -530,7 +561,7 @@
         // ========================================================================
         // ⚠️ IMPORTANT: PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW ⚠️
         // ========================================================================
-        const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwq6qCSjSJbk3YsTDD8pjfmROmA6ab8_GqDx1sPZIWQaOpM3dN5Vr1dwcWykOE_LklUAA/exec";
+        const GOOGLE_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxHndUl7dddDsUXnp12WCCzj3CKaIdCvDh2EO5DD-OdLgvnqK62sR0XBvus3B9IJijY/exec";
         // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
         
         // --- GITHUB DEFAULT CONFIG (Fallbacks for cross-device photo viewing) ---
@@ -993,6 +1024,96 @@
         const modalStyle = document.createElement('style');
         modalStyle.textContent = '@keyframes modalSpin { to { transform: rotate(360deg); } }';
         document.head.appendChild(modalStyle);
+
+        // ── Manual Dispatch Modal Handlers ──
+        function openManualModal() {
+            const modal = document.getElementById('manualModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('show'), 10);
+            }
+        }
+
+        function closeManualModal() {
+            const modal = document.getElementById('manualModal');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+        // Close manual modal when clicking outside of it
+        document.getElementById('manualModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('manualModal')) closeManualModal();
+        });
+
+        function submitManualDispatch() {
+            const name = document.getElementById('manualName').value.trim();
+            const phone = document.getElementById('manualPhone').value.trim();
+            const address = document.getElementById('manualAddress').value.trim();
+            const pincode = document.getElementById('manualPincode').value.trim();
+
+            if (!name || !phone || !address || !pincode) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            if (phone.length < 10) {
+                alert('Please enter a valid 10-digit phone number.');
+                return;
+            }
+
+            const payload = {
+                name: name,
+                phone: phone,
+                address: address,
+                pincode: pincode
+            };
+
+            const submitBtn = document.querySelector('#manualModal button[onclick="submitManualDispatch()"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting...';
+
+            const formData = new URLSearchParams();
+            formData.append("data", JSON.stringify(payload));
+
+            fetch(GOOGLE_WEB_APP_URL, {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.text())
+            .then(text => {
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch(e) {
+                    throw new Error('Server returned invalid response.');
+                }
+
+                if (data.status === "success") {
+                    alert('Successfully Dispatched!');
+                    closeManualModal();
+                    // Clear inputs
+                    document.getElementById('manualName').value = '';
+                    document.getElementById('manualPhone').value = '';
+                    document.getElementById('manualAddress').value = '';
+                    document.getElementById('manualPincode').value = '';
+                    // Refresh data
+                    fetchData();
+                } else {
+                    alert('Error: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Network error. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            });
+        }
     </script>
 </body>
 
