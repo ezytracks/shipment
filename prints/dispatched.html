@@ -579,33 +579,54 @@
             fetchData();
         }
 
-        function renderData(data) {
-            if (!data || data.length === 0) {
-                document.getElementById('empty').style.display = 'block';
-                document.getElementById('data-table').style.display = 'none';
-                return;
-            }
+        function renderData(data, filterQuery = '') {
+            if (!data) return;
+            _fullData = data;
 
-            const reversedData = [...data].reverse();
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
             window._rowStore = []; // Reset on each render
             const deletedOrders = JSON.parse(localStorage.getItem('deletedOrders') || '[]');
 
-            reversedData.forEach(row => {
+            // Filter in-memory
+            const q = filterQuery.toLowerCase().trim();
+            const filtered = data.filter(row => {
                 // Skip empty rows
-                if (!row.timestamp && !row.name && !row.phone) return;
-
+                if (!row.timestamp && !row.name && !row.phone) return false;
                 // Skip deleted rows
-                if (deletedOrders.includes(row.timestamp)) return;
+                if (deletedOrders.includes(row.timestamp)) return false;
 
+                if (q) {
+                    const name = (row.name || '').toLowerCase();
+                    const phone = (row.phone || '').toLowerCase();
+                    const address = (row.address || '').toLowerCase();
+                    const awb = (row.awb || '').toLowerCase();
+                    const timestamp = (row.timestamp || '').toLowerCase();
+                    return name.includes(q) || phone.includes(q) || address.includes(q) || awb.includes(q) || timestamp.includes(q);
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                document.getElementById('empty').style.display = 'block';
+                document.getElementById('data-table').style.display = 'none';
+                return;
+            }
+
+            // Reverse to show newest first
+            const reversedData = [...filtered].reverse();
+
+            // Limit to most recent items to keep rendering super fast
+            const limit = q ? 200 : 100;
+            const slicedData = reversedData.slice(0, limit);
+
+            slicedData.forEach(row => {
                 let dispAddress = row.address || row.Address || '';
                 let dispName = row.name || row.Name || '';
                 let dispPhone = row.phone || row.Phone || '';
                 let dispAwb = row.awb || row.AWB || '';
 
                 // Fallback: If phone is empty, try to extract it from the address string
-                // Often Google Sheets dumps "Name Phone Pincode" all into the address field
                 if (!dispPhone && dispAddress) {
                     const phMatch = dispAddress.match(/\b(\d{5}\s\d{5}|\d{10})\b/);
                     if (phMatch) {
@@ -613,7 +634,7 @@
                     }
                 }
 
-                // Fallback: if address is empty, use name field (some old scans stored address there)
+                // Fallback: if address is empty, use name field
                 if (!dispAddress || dispAddress.trim() === '') {
                     dispAddress = dispName;
                 }
@@ -654,13 +675,8 @@
                 tbody.appendChild(tr);
             });
 
-            if (tbody.children.length === 0) {
-                document.getElementById('empty').style.display = 'block';
-                document.getElementById('data-table').style.display = 'none';
-            } else {
-                document.getElementById('empty').style.display = 'none';
-                document.getElementById('data-table').style.display = 'table';
-            }
+            document.getElementById('empty').style.display = 'none';
+            document.getElementById('data-table').style.display = 'table';
         }
 
         function fetchData() {
@@ -719,19 +735,8 @@
         }
 
         function filterTable() {
-            const input = document.getElementById("searchInput").value.toLowerCase();
-            const table = document.getElementById("data-table");
-            const tr = table.getElementsByTagName("tr");
-
-            for (let i = 1; i < tr.length; i++) {
-                // Search the entire text content of the row
-                const rowText = tr[i].innerText.toLowerCase();
-                if (rowText.includes(input)) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
+            const input = document.getElementById("searchInput").value;
+            renderData(_fullData, input);
         }
 
         function deleteOrder(timestamp) {
