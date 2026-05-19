@@ -69,10 +69,14 @@
             margin-bottom: 22px;
         }
 
-        /* Search */
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+
         .sbox {
             position: relative;
-            margin-bottom: 14px;
+            flex: 1;
         }
 
         .sbox .si {
@@ -101,11 +105,22 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, .2);
         }
 
-        .sbox input::placeholder {
+        .clear-btn {
+            padding: 0 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1.5px solid var(--bdr);
+            border-radius: 13px;
             color: var(--muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
         }
 
-        /* Stats */
+        .clear-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
         .rstats {
             display: flex;
             align-items: center;
@@ -116,9 +131,7 @@
             flex-wrap: wrap;
         }
 
-        .rstats strong {
-            color: var(--pl);
-        }
+        .rstats strong { color: var(--pl); }
 
         .rbadge {
             background: rgba(99, 102, 241, .15);
@@ -129,7 +142,6 @@
             font-size: .82rem;
         }
 
-        /* Results grid */
         #rgrid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -160,15 +172,8 @@
             display: block;
         }
 
-        .rc .ci {
-            padding: 13px 15px;
-        }
-
-        .rc .cn {
-            font-weight: 700;
-            font-size: .95rem;
-            margin-bottom: 5px;
-        }
+        .rc .ci { padding: 13px 15px; }
+        .rc .cn { font-weight: 700; font-size: .95rem; margin-bottom: 5px; }
 
         .rc .ml {
             display: flex;
@@ -209,9 +214,7 @@
             transition: background .25s;
         }
 
-        .rc:hover .vo {
-            background: rgba(99, 102, 241, .22);
-        }
+        .rc:hover .vo { background: rgba(99, 102, 241, .22); }
 
         .vo span {
             background: rgba(0, 0, 0, .72);
@@ -222,7 +225,7 @@
             font-size: .88rem;
             opacity: 0;
             transform: scale(.85);
-            transition: opacity .25s, transform .25s;
+            transition: all .25s;
         }
 
         .rc:hover .vo span {
@@ -237,62 +240,15 @@
             padding: 0 2px;
         }
 
-        /* State boxes */
         .sb {
             text-align: center;
             padding: 55px 20px;
             color: var(--muted);
         }
 
-        .sb .si2 {
-            font-size: 3.2rem;
-            margin-bottom: 12px;
-        }
+        .sb .si2 { font-size: 3.2rem; margin-bottom: 12px; }
 
-        @media(max-width: 600px) {
-            body {
-                padding: 20px 15px;
-            }
-
-            .ph h1 {
-                font-size: 2rem;
-            }
-
-            .card {
-                padding: 18px;
-                border-radius: 16px;
-            }
-
-            #rgrid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .rc img {
-                height: 150px;
-            }
-
-            .vo {
-                height: 150px;
-            }
-
-            .rstats {
-                font-size: 0.8rem;
-            }
-        }
-
-        .sb h3 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--txt);
-            margin-bottom: 5px;
-        }
-
-        .sb p {
-            font-size: .92rem;
-        }
-
-        /* Modal */
+        /* Modal Styles */
         #imod {
             display: none;
             position: fixed;
@@ -305,12 +261,9 @@
             gap: 18px;
             padding: 20px;
             overflow-y: auto;
-            scroll-behavior: smooth;
         }
 
-        #imod.open {
-            display: flex;
-        }
+        #imod.open { display: flex; }
 
         #imod .mw {
             max-width: 94vw;
@@ -323,68 +276,33 @@
         #imod .mw img {
             width: 100%;
             max-width: 800px;
-            height: auto;
             max-height: 75vh;
             object-fit: contain;
             border-radius: 13px;
             box-shadow: 0 18px 55px rgba(0, 0, 0, .6);
-            display: block;
         }
 
-        .dl-btn-secondary {
-            width: 100%;
-            max-width: 500px;
+        .dl-btn-secondary, .dlbtn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 7px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .dl-btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--bdr);
             color: var(--muted);
-            padding: 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s;
         }
 
-        .dl-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .dlbtn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: #fff;
-            transform: translateY(-2px);
-        }
-
-        #imod .mi {
-            background: rgba(20, 30, 55, .96);
-            border: 1px solid var(--bdr);
-            border-radius: 15px;
-            padding: 16px 22px;
-            max-width: 94vw;
-            width: 500px;
-        }
-
-        .track-input-box {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px 20px;
-            border: 1px solid var(--bdr);
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        #imod .mi .mn {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        #imod .mi .mm {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
         }
 
         #imod .cm {
@@ -394,7 +312,6 @@
             z-index: 10005;
             font-size: 1.5rem;
             color: #fff;
-            cursor: pointer;
             background: #ef4444;
             border: 2px solid #fff;
             border-radius: 50%;
@@ -403,48 +320,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
         }
 
-        #imod .cm:hover {
-            background: #ef4444;
-            transform: scale(1.1);
-        }
-
-        .dlbtn {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: #fff;
-            text-decoration: none;
-            padding: 9px 20px;
-            border-radius: 9px;
-            font-weight: 600;
-            font-size: .88rem;
-            transition: all .2s;
-        }
-
-        .dlbtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 18px rgba(99, 102, 241, .5);
-        }
-
-        @media(max-width:580px) {
-            #rgrid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            #imod .mi,
-            .track-input-box {
-                width: 92vw;
-                padding: 12px 16px;
-            }
-
-            #imod .mw img {
-                max-height: 60vh;
-            }
+        @media(max-width: 600px) {
+            #rgrid { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .rc img, .vo { height: 150px; }
         }
     </style>
 </head>
@@ -457,9 +338,14 @@
 
     <!-- Search -->
     <div class="card">
-        <div class="sbox"><span class="si">🔍</span><input type="text" id="si"
-                placeholder="Enter last 5 digits of your phone number..." autocomplete="off" autofocus
-                oninput="doSearch()"></div>
+        <div class="search-container">
+            <div class="sbox">
+                <span class="si">🔍</span>
+                <input type="text" id="si" placeholder="Enter last 5 digits of your phone number..." 
+                       autocomplete="off" autofocus maxlength="5">
+            </div>
+            <button class="clear-btn" id="clear-btn" title="Clear Search">✕</button>
+        </div>
     </div>
 
     <!-- Results -->
@@ -481,7 +367,7 @@
             <div class="sb" id="norec-st" style="display:none;">
                 <div class="si2">📭</div>
                 <h3>No records loaded</h3>
-                <p>Click <strong>Load Records</strong> above first.</p>
+                <p id="norec-msg">Click <strong>Load Records</strong> above first.</p>
             </div>
             <div class="sb" id="load-st" style="display:none;">
                 <div class="si2">⏳</div>
@@ -491,26 +377,21 @@
             <div id="rgrid"></div>
         </div>
     </div>
+
     <div id="imod">
         <div class="mw">
             <button class="cm" onclick="closeMod()" title="Close">✕</button>
             <img id="mimg" src="" alt="">
         </div>
 
-        <!-- Tracking Area -->
-        <div id="tracking-action-area"
-            style="width:100%; display:flex; flex-direction:column; align-items:center; gap:12px;"></div>
+        <div id="tracking-action-area" style="width:100%; display:flex; flex-direction:column; align-items:center; gap:12px;"></div>
 
         <div class="track-input-box" id="manual-track-box">
-            <label
-                style="display:block; font-size:.68rem; color:var(--pl); margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px;">🚚
-                Manual Tracking</label>
+            <label style="display:block; font-size:.68rem; color:var(--pl); margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px;">🚚 Manual Tracking</label>
             <div style="display:flex; gap:8px;">
                 <input type="text" id="manual-awb" placeholder="Type Tracking ID..."
                     style="flex:1; background:var(--inp); border:1px solid var(--bdr); border-radius:8px; padding:10px; color:#fff; outline:none; font-size:0.9rem;">
-                <button class="dlbtn"
-                    style="margin-top:0; padding:0 20px; background:var(--primary); font-size:0.85rem;"
-                    onclick="startManualTrack()">Track</button>
+                <button class="dlbtn" onclick="startManualTrack()">Track</button>
             </div>
         </div>
 
@@ -520,108 +401,125 @@
         </div>
     </div>
 
-
     <script>
         let allRecords = [];
-        let activeFilter = 'all';
+        let searchTimeout = null;
 
-        // State helpers
         function showState(id) {
-            ['init-st', 'empty-st', 'norec-st', 'load-st'].forEach(s => document.getElementById(s).style.display = 'none');
+            ['init-st', 'empty-st', 'norec-st', 'load-st'].forEach(s => 
+                document.getElementById(s).style.display = 'none'
+            );
             document.getElementById(id).style.display = 'block';
             document.getElementById('rgrid').innerHTML = '';
             document.getElementById('rstats').style.display = 'none';
         }
 
-        // Load records
         async function loadAndSearch() {
-            showState('load-st');
-            try {
-                // Try fetching from GitHub directly for latest data
-                const repo = 'thecraftyriz/thecraftyriz';
-                const branch = 'main';
-                let res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/records.json?v=` + Date.now());
+            // Try cache first
+            const cached = localStorage.getItem('ghRecordsCache');
+            if (cached) {
+                try {
+                    allRecords = JSON.parse(cached);
+                } catch (e) {}
+            }
 
-                if (!res.ok) {
-                    // Fallback to local if GitHub fails
-                    res = await fetch('records.json?v=' + Date.now());
+            if (allRecords.length) showState('init-st');
+            else showState('load-st');
+
+            try {
+                const repo = 'thecraftyriz/thecraftyriz';
+                const res = await fetch(`https://raw.githubusercontent.com/${repo}/main/records.json?v=${Date.now()}`);
+
+                if (!res.ok) throw new Error('Failed to fetch from GitHub');
+
+                const text = await res.text();
+                const freshRecords = text.trim() ? JSON.parse(text) : [];
+
+                if (freshRecords.length > 0) {
+                    allRecords = freshRecords;
+                    localStorage.setItem('ghRecordsCache', JSON.stringify(freshRecords));
                 }
 
-                if (!res.ok) throw new Error('Tracking records not found on GitHub or locally.');
-                const text = await res.text();
-                allRecords = text.trim() ? JSON.parse(text) : [];
-
-                showState('init-st');
                 const q = document.getElementById('si').value.trim();
-                if (q.length >= 4) doSearch();
+                if (q.length >= 5) doSearch();
+                else showState('init-st');
+
             } catch (e) {
-                showState('norec-st');
-                document.getElementById('norec-st').querySelector('p').textContent = e.message;
+                console.warn(e);
+                if (!allRecords.length) {
+                    showState('norec-st');
+                    document.getElementById('norec-msg').textContent = "Failed to load records. Please try again later.";
+                }
             }
         }
 
         function hl(text, q) {
-            if (!q) return text;
+            if (!q) return text || '';
             return String(text).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark>$1</mark>');
         }
+
         function fmtDate(iso) {
             if (!iso) return '';
-            const d = new Date(iso); if (isNaN(d)) return iso;
+            const d = new Date(iso);
+            if (isNaN(d)) return iso;
             const p = n => String(n).padStart(2, '0');
             return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
         }
 
         function doSearch() {
             const raw = document.getElementById('si').value.trim();
-            const q = raw.toLowerCase();
-            if (!allRecords.length) { showState('norec-st'); return; }
+            if (raw.length < 5) {
+                showState('init-st');
+                return;
+            }
+            if (!allRecords.length) {
+                showState('norec-st');
+                return;
+            }
 
-            // Require exactly/at least 5 characters for security
-            if (q.length < 5) { showState('init-st'); return; }
+            const matched = allRecords.filter(r => String(r.phone || '').endsWith(raw));
 
-            const matched = allRecords.filter(r =>
-                String(r.phone || '').endsWith(q)
-            );
-
-            ['init-st', 'empty-st', 'norec-st', 'load-st'].forEach(s => document.getElementById(s).style.display = 'none');
-
-            if (!matched.length) { document.getElementById('empty-st').style.display = 'block'; document.getElementById('rstats').style.display = 'none'; document.getElementById('rgrid').innerHTML = ''; return; }
+            if (!matched.length) {
+                document.getElementById('empty-st').style.display = 'block';
+                document.getElementById('rgrid').innerHTML = '';
+                document.getElementById('rstats').style.display = 'none';
+                return;
+            }
 
             document.getElementById('rstats').style.display = 'flex';
             document.getElementById('rcnt').textContent = matched.length;
             document.getElementById('rbadge').textContent = matched.length;
 
-            document.getElementById('rgrid').innerHTML = matched.map(r => {
-                return `
-    <div class="rc" onclick="openMod('${r.id}')">
-      <div class="vo"><span>🔍 View Photo</span></div>
-      <img src="${r.photoUrl}" alt="parcel photo" loading="lazy">
-      <div class="ci">
-        <div class="cn">👤 ${hl(r.name, q)}</div>
-        <div class="ml">
-          <span class="chip">📍 ${hl(r.pincode, q)}</span>
-          <span class="chip ph">📞 ${hl(r.phone, q)}</span>
-          ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">🚚 ${hl(r.awb, q)}</span>` : ''}
-          <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
-        </div>
-      </div>
-    </div>`;
-            }).join('');
+            document.getElementById('rgrid').innerHTML = matched.map(r => `
+                <div class="rc" onclick="openMod('${r.id}')">
+                    <div class="vo"><span>🔍 View Photo</span></div>
+                    <img src="${r.photoUrl}" alt="parcel photo" loading="lazy">
+                    <div class="ci">
+                        <div class="cn">👤 ${hl(r.name, raw)}</div>
+                        <div class="ml">
+                            <span class="chip">📍 ${hl(r.pincode, raw)}</span>
+                            <span class="chip ph">📞 ${hl(r.phone, raw)}</span>
+                            ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">🚚 ${hl(r.awb, raw)}</span>` : ''}
+                            <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function openMod(id) {
             const r = allRecords.find(x => x.id === id);
             if (!r) return;
+
             document.getElementById('mimg').src = r.photoUrl;
             document.getElementById('mname').textContent = `👤 ${r.name}`;
             document.getElementById('mmeta').innerHTML = `
-        <span class="chip">📍 ${r.pincode}</span>
-        <span class="chip ph">📞 ${r.phone}</span>
-        ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">🚚 ${r.awb}</span>` : ''}
-        <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
-      `;
+                <span class="chip">📍 ${r.pincode}</span>
+                <span class="chip ph">📞 ${r.phone}</span>
+                ${r.awb ? `<span class="chip" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#34d399;">🚚 ${r.awb}</span>` : ''}
+                <span class="chip dt">🕐 ${fmtDate(r.uploadedAt)}</span>
+            `;
 
-            // Setup Tracking Area
             const actionArea = document.getElementById('tracking-action-area');
             const manualBox = document.getElementById('manual-track-box');
             actionArea.innerHTML = '';
@@ -629,15 +527,17 @@
             if (r.awb) {
                 manualBox.style.display = 'none';
                 actionArea.innerHTML = `
-          <a href="livestatus.html?awb=${encodeURIComponent(r.awb)}" class="dlbtn" style="width:100%; max-width:500px; justify-content:center; background:linear-gradient(135deg, #10b981, #059669); border:none; font-size:1.1rem; padding:18px; border-radius:15px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); transition: transform 0.2s;">🚀 Click to Track Status</a>
-          <a href="${r.photoUrl}" class="dl-btn-secondary" style="margin-top:5px;" download="tracking_photo_${r.id}.jpg">⬇️ Download Photo</a>
-        `;
+                    <a href="livestatus.html?awb=${encodeURIComponent(r.awb)}" class="dlbtn" style="width:100%; max-width:500px; padding:18px; font-size:1.1rem; background:linear-gradient(135deg, #10b981, #059669);">
+                        🚀 Click to Track Status
+                    </a>
+                    <a href="${r.photoUrl}" class="dl-btn-secondary" download="tracking_photo_${r.id}.jpg">⬇️ Download Photo</a>
+                `;
             } else {
                 manualBox.style.display = 'block';
                 document.getElementById('manual-awb').value = '';
                 actionArea.innerHTML = `
-          <a href="${r.photoUrl}" class="dl-btn-secondary" download="tracking_photo_${r.id}.jpg">⬇️ Download Photo</a>
-        `;
+                    <a href="${r.photoUrl}" class="dl-btn-secondary" download="tracking_photo_${r.id}.jpg">⬇️ Download Photo</a>
+                `;
             }
 
             document.getElementById('imod').classList.add('open');
@@ -645,18 +545,46 @@
 
         function startManualTrack() {
             const num = document.getElementById('manual-awb').value.trim();
-            if (!num) { alert("Please enter the tracking ID from the photo."); return; }
+            if (!num) {
+                alert("Please enter the tracking ID from the photo.");
+                return;
+            }
             window.location.href = `livestatus.html?awb=${encodeURIComponent(num)}`;
         }
 
-        function closeMod() { document.getElementById('imod').classList.remove('open'); document.getElementById('mimg').src = ''; }
+        function closeMod() {
+            document.getElementById('imod').classList.remove('open');
+            setTimeout(() => { document.getElementById('mimg').src = ''; }, 400);
+        }
 
-        document.getElementById('imod').addEventListener('click', e => { if (e.target === document.getElementById('imod')) closeMod(); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMod(); } });
+        // Initialize
+        window.onload = () => {
+            loadAndSearch();
 
-        // Init
-        loadAndSearch();
+            const input = document.getElementById('si');
+            const clearBtn = document.getElementById('clear-btn');
+
+            input.addEventListener('input', () => {
+                // Allow only numbers
+                input.value = input.value.replace(/[^0-9]/g, '').slice(0, 5);
+
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(doSearch, 280);
+            });
+
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                showState('init-st');
+            });
+
+            document.getElementById('imod').addEventListener('click', e => {
+                if (e.target === document.getElementById('imod')) closeMod();
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') closeMod();
+            });
+        };
     </script>
 </body>
-
 </html>
